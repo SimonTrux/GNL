@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: struxill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 17:22:55 by struxill          #+#    #+#             */
-/*   Updated: 2018/11/27 19:31:57 by struxill         ###   ########.fr       */
+/*   Created: 2018/11/27 17:28:41 by struxill          #+#    #+#             */
+/*   Updated: 2018/11/27 17:33:39 by struxill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <stdio.h>
 
-int	get_next_line(const int fd, char **line)
+int	main(void)
 {
-	t_list	*start;
-	t_list	*new;
+	int		fd;
+	char	**line;
 
-	*new = NULL;
-
-
+	fd = open("get_next_line.c", O_RDONLY);
+	printf("GNL : \n\n%s");
 	return (0);
 }
