@@ -6,7 +6,7 @@
 #    By: struxill <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/27 17:32:25 by struxill          #+#    #+#              #
-#    Updated: 2018/12/02 22:03:43 by struxill         ###   ########.fr        #
+#    Updated: 2018/12/11 20:27:48 by struxill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ $(NAME):
 	$(CC) -o $(NAME) main.o get_next_line.o -I $(INCLUDES) -L $(LIB) -lft
 	
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) main.o
 
 fclean: clean
 	rm -f $(NAME)
