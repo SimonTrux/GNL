@@ -6,7 +6,7 @@
 /*   By: struxill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 17:22:55 by struxill          #+#    #+#             */
-/*   Updated: 2018/12/26 20:27:40 by struxill         ###   ########.fr       */
+/*   Updated: 2018/12/11 20:26:53 by struxill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,6 @@ char	*ft_str_m_cat(char *dst, char *src)
 	return (str);
 }
 
-static t_list	*get_fd(t_list **list, int fd)
-{
-	t_list	*temp
-
-	temp = *list;
-	while (temp)
-	{
-		if (temp->content_size == fd)
-			return (temp);
-			temp = temp->next;
-	}
-	temp = ft_lstnew("\0", fd);
-	ft_lstadd(list, temp);
-	return (temp);
-}
-
-char	**ft_strsplit_fd(char const *s, char c, int fd)
-{
-	get
-
-}
-
 char	*ft_read_line(const int fd)
 {
 	int		ret;
@@ -74,21 +52,32 @@ char	*ft_read_line(const int fd)
 
 int	get_next_line(const int fd, char **line)
 {
-	static t_list	*list_fd;
-	t_list			*list;
+	static t_list	*list1;
 	char			*str;
 	char			**tab;
+//	char			*next_str;
+//	int				i;
 
-	if (fd < 0 || !line || BUFF_SIZE <= 0 )
+	if (fd == -1)
 	{
-		ft_putstr("Error\n");
+		ft_putstr("Fd = -1, error\n");
 		return (-1);
 	}
-	list = get_fd(list_fd, fd);
-	str = ft_read_line(list);
-	tab = ft_strsplit(str, '\n');
 
+/*	
+	if (list1 != NULL)
+	{
+		ft_lstadd(&list1, ft_lstnew(ft_str_m_cat(list1->content, ft_read_line(fd)), ft_strlen(list1->content)));
+		*line = list1->content;
+		free(list1);
+		return (1);
+	}	
+	i = 1;
+	next_str = "\0";
+*/
 
+	list1 = ft_lstnew("", 0);
+	str = ft_read_line(fd);
 	if (str != NULL)
 	{
 		tab = ft_strsplit(str, '\n');
@@ -96,6 +85,14 @@ int	get_next_line(const int fd, char **line)
 		ft_lstadd(&list1, ft_lstnew(tab[0], ft_strlen(tab[0])));
 		*line = list1->content;
 		free(list1);
+		
+//		while (tab[i])
+//		{
+//			next_str = ft_str_m_cat(next_str, tab[i]);
+//			i++;
+//		}
+//		ft_lstadd(&list1, ft_lstnew(next_str, ft_strlen(next_str)));
+		
 		return (1);
 	}
 	return (0);
