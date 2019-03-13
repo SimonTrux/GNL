@@ -31,28 +31,22 @@ char	*ft_str_m_cat(char *dst, char *src)
 	return (str);
 }
 
-static t_list	*get_fd(t_list **list, int fd)
+int		get_fd(t_list **list, int fd)
 {
-	t_list	*temp
+	t_list	*temp;
 
 	temp = *list;
 	while (temp)
 	{
-		if (temp->content_size == fd)
-			return (temp);
-			temp = temp->next;
+		if ((int)temp->content_size == fd)
+			return (temp->content_size);
+		temp = temp->next;
 	}
 	temp = ft_lstnew("\0", fd);
 	ft_lstadd(list, temp);
-	return (temp);
+	return (temp->content_size);
 }
-
-char	**ft_strsplit_fd(char const *s, char c, int fd)
-{
-	get
-
-}
-
+/*
 char	*ft_read_line(const int fd)
 {
 	int		ret;
@@ -70,33 +64,49 @@ char	*ft_read_line(const int fd)
 	if (ret == 0)
 		return (NULL);
 	return (str);
+} */
+
+char	*ft_read_line(const int fd)
+{
+	int		ret;
+	char	buf[BUFF_SIZE + 1];
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = "\0";
+	while ((ret = read(fd, buf, BUFF_SIZE)) && ft_strchr(buf, '\n') == NULL)
+	{
+		buf[ret] = '\0';
+		str = ft_str_m_cat(str, buf);
+	}
+	if (ret == 0)
+		return (NULL);
+	while (buf[i] != '\n' && buf[i])
+		i++;
+//	ft_strncpy(str, buf, i);
+//	buf[i] = '\0';
+	str = ft_str_m_cat(str, buf);
+	return (str);
 }
 
 int	get_next_line(const int fd, char **line)
 {
 	static t_list	*list_fd;
-	t_list			*list;
-	char			*str;
-	char			**tab;
+	int				fd_int;;
+//	char			*str;
 
 	if (fd < 0 || !line || BUFF_SIZE <= 0 )
 	{
 		ft_putstr("Error\n");
 		return (-1);
 	}
-	list = get_fd(list_fd, fd);
-	str = ft_read_line(list);
-	tab = ft_strsplit(str, '\n');
-
-
-	if (str != NULL)
-	{
-		tab = ft_strsplit(str, '\n');
-		*line = tab[0];
-		ft_lstadd(&list1, ft_lstnew(tab[0], ft_strlen(tab[0])));
-		*line = list1->content;
-		free(list1);
+	fd_int = get_fd(&list_fd, fd);
+//	printf("fd_int = %i\n", fd_int);
+	*line = ft_read_line(fd_int);
+//	printf("line = %s\n", *line);
+	if (*line)
 		return (1);
-	}
+//	printf("str = %s\n", str);
 	return (0);
 }
