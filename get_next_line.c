@@ -66,15 +66,19 @@ char	*ft_read_line(const int fd)
 	return (str);
 } */
 
-char	*ft_read_line(const int fd)
+char	*ft_read_line(const int fd, t_list *list_fd)
 {
 	int		ret;
 	char	buf[BUFF_SIZE + 1];
 	char	*str;
 	int		i;
+//	char	tmp_c;
 
 	i = 0;
-	str = "\0";
+//	str = "\0";
+	while ((int)list_fd->content_size != fd && list_fd->next)
+		list_fd = list_fd->next;
+	str = ft_str_m_cat("\0", list_fd->content);
 	while ((ret = read(fd, buf, BUFF_SIZE)) && ft_strchr(buf, '\n') == NULL)
 	{
 		buf[ret] = '\0';
@@ -84,26 +88,29 @@ char	*ft_read_line(const int fd)
 		return (NULL);
 	while (buf[i] != '\n' && buf[i])
 		i++;
-//	ft_strncpy(str, buf, i);
-//	buf[i] = '\0';
+//	tmp_c = buf[i];
+	buf[i] = '\0';
 	str = ft_str_m_cat(str, buf);
+//	buf[i] = tmp_c;
+	buf[ret] = '\0';
+	list_fd->content = ft_strdup(&buf[i + 1]);
 	return (str);
 }
 
 int	get_next_line(const int fd, char **line)
 {
 	static t_list	*list_fd;
-	int				fd_int;;
-//	char			*str;
+//	int				fd_int;
 
 	if (fd < 0 || !line || BUFF_SIZE <= 0 )
 	{
 		ft_putstr("Error\n");
 		return (-1);
 	}
-	fd_int = get_fd(&list_fd, fd);
+//	fd_int = get_fd(&list_fd, fd);
 //	printf("fd_int = %i\n", fd_int);
-	*line = ft_read_line(fd_int);
+//	*line = ft_read_line(fd_int);
+	*line = ft_read_line(get_fd(&list_fd, fd), list_fd);
 //	printf("line = %s\n", *line);
 	if (*line)
 		return (1);

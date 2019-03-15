@@ -22,11 +22,12 @@
 
 int	get_next_line(const int fd, char **line);
 ///////
-char	*ft_str_m_cat(char *dst, char *src);
-char	*ft_read_line(int fd);
+//char	*ft_str_m_cat(char *dst, char *src);
+//char	*ft_read_line(int fd);
 
 
 /////////
+/*
 typedef struct 	n_list
 {
 	int				fd;
@@ -34,4 +35,5 @@ typedef struct 	n_list
 	struct s_list	*next;
 	struct s_list	*start;
 }				list;
+*/
 #endif
