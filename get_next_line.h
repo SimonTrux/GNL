@@ -12,7 +12,7 @@
 
 #ifndef __GET_NEXT_LINE_H
 # define __GET_NEXT_LINE_H
-# define BUFF_SIZE 32
+# define BUFF_SIZE 2000
 # include "./Libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>

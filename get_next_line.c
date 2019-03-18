@@ -71,21 +71,37 @@ char	*ft_read_line(const int fd, t_list *list_fd)
 	int		ret;
 	char	buf[BUFF_SIZE + 1];
 	char	*str;
-	int		i;
-//	char	tmp_c;
+//	int		i;
+	char	*ptr;
 
-	i = 0;
+//	i = 0;
 //	str = "\0";
 	while ((int)list_fd->content_size != fd && list_fd->next)
 		list_fd = list_fd->next;
-	str = ft_str_m_cat("\0", list_fd->content);
+	if (ft_strchr(list_fd->content, '\n'))
+	{
+		ptr = ft_strchr(list_fd->content, '\n');
+		*ptr = '\0';
+		str = ft_str_m_cat("\0", list_fd->content);
+		list_fd->content = ft_strdup(ptr + 1);
+		return (str);
+	}
+	else
+		str = ft_str_m_cat("\0", list_fd->content);
 	while ((ret = read(fd, buf, BUFF_SIZE)) && ft_strchr(buf, '\n') == NULL)
 	{
 		buf[ret] = '\0';
 		str = ft_str_m_cat(str, buf);
 	}
-	if (ret == 0)
+	if (ret == 0 && !ft_strcmp(str, "\0"))
 		return (NULL);
+	ptr = ft_strchr(buf, '\n');
+	*ptr = '\0';
+	str = ft_str_m_cat(str, buf);
+	list_fd->content = ft_strdup(ptr + 1);
+	return (str);
+}
+/*
 	while (buf[i] != '\n' && buf[i])
 		i++;
 //	tmp_c = buf[i];
@@ -95,7 +111,7 @@ char	*ft_read_line(const int fd, t_list *list_fd)
 	buf[ret] = '\0';
 	list_fd->content = ft_strdup(&buf[i + 1]);
 	return (str);
-}
+} */
 
 int	get_next_line(const int fd, char **line)
 {
@@ -109,11 +125,8 @@ int	get_next_line(const int fd, char **line)
 	}
 //	fd_int = get_fd(&list_fd, fd);
 //	printf("fd_int = %i\n", fd_int);
-//	*line = ft_read_line(fd_int);
 	*line = ft_read_line(get_fd(&list_fd, fd), list_fd);
-//	printf("line = %s\n", *line);
 	if (*line)
 		return (1);
-//	printf("str = %s\n", str);
 	return (0);
 }

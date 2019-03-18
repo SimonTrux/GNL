@@ -48,10 +48,10 @@ int	main(void)
 	fd = open("text.txt", O_RDONLY);
 		while (get_next_line(fd, &line) == 1)
 		{
-	//		printf("line %i\n", i);
+			printf("line %i\n", i);
 			ft_putstr(line);
 			ft_putstr("\n");
-	//		i++;
+			i++;
 		}
 	close(fd);
 	return (0);
