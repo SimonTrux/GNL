@@ -5,35 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: struxill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 17:22:58 by struxill          #+#    #+#             */
-/*   Updated: 2018/12/11 18:03:45 by struxill         ###   ########.fr       */
+/*   Created: 2019/03/21 18:06:27 by struxill          #+#    #+#             */
+/*   Updated: 2019/03/21 18:48:34 by struxill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __GET_NEXT_LINE_H
-# define __GET_NEXT_LINE_H
-# define BUFF_SIZE 2000
-# include "./Libft/libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
-
-
-# include <stdio.h>
+# define BUFF_SIZE 100
 
 int	get_next_line(const int fd, char **line);
-///////
-//char	*ft_str_m_cat(char *dst, char *src);
-//char	*ft_read_line(int fd);
 
-
-/////////
-/*
-typedef struct 	n_list
-{
-	int				fd;
-	char			*cline;
-	struct s_list	*next;
-	struct s_list	*start;
-}				list;
-*/
 #endif
